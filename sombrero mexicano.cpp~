@@ -1,0 +1,386 @@
+//para operaciones opencv
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <pmdsdk2.h>
+#include <iostream>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/contrib/contrib.hpp>
+#include <opencv2/core/core.hpp>
+
+
+
+
+
+
+
+#define _USE_MATH_DEFINES
+#define  IMAGE_CONV 1
+
+using namespace cv;
+using namespace std;
+
+ double minValg, maxValg;
+ double minValgaus, maxValgaus;
+
+
+
+
+///==========================================================================///
+///                              FILTRO GAUSSIANO                            ///
+///                                                                          ///
+///==========================================================================///
+
+void gaussian_filter(Mat& original_send)
+{
+      Mat original = original_send.clone();
+      Mat src;
+      imshow("src1", original);
+
+      minMaxLoc(original, &minValg, &maxValg);
+      //original.convertTo(original, CV_8U, 255.0/(maxValg - minValg), -minValg * 255.0/(maxValg - minValg));
+
+
+
+
+    ///Declaración de las variables para crear el filtro
+      Mat gaus_kernel; //= Mat(100,100, CV_32FC2); //matriz del filtro
+      Point anchor; //punto de fijación del píxel que variamos
+      double delta; //offset al píxel
+      int ddepth; //tamaño imagen salida
+      int kernel_size; //tamaño del filtro
+
+      src = maxValg- original;///imread("../raquelTOFAlgs/objets_frames/frame_silla291.jpg",CV_LOAD_IMAGE_GRAYSCALE);
+      //resize(src, src_r, Size2f(100,100), 0 ,0 ,INTER_LINEAR);
+      imshow("src2", src);
+
+
+      anchor = Point(-1,-1);
+      delta = 0;
+      ddepth = -1;
+
+      kernel_size = 100;
+      float mu_x = kernel_size/2;
+      float mu_y = kernel_size/2;
+      float ro_x=60;
+      float ro_y= 60;
+      float ampl = (1/(ro_y*sqrt(2*M_PI)));
+
+      double exp_aux_x, exp_aux_y;
+      int j_bucle=0;
+      int k_bucle=0;
+
+
+
+      float* x_array = new float[kernel_size*kernel_size];
+      float* y_array = new float[kernel_size*kernel_size];
+      float* z_array = new float[kernel_size*kernel_size];
+
+      for(int j=0; j < kernel_size; j++)
+      {
+          for (int k=0; k< kernel_size; k++)
+          {
+
+          x_array[kernel_size*j_bucle+k_bucle]=k;
+          y_array[kernel_size*j_bucle+k_bucle]=j;
+
+          exp_aux_x = (((k-mu_x)/ro_x)*((k-mu_x)/ro_x))*(-0.5);
+          exp_aux_y = (((j-mu_y)/ro_y)*((j-mu_y)/ro_y))*(-0.5);
+
+           z_array[kernel_size*j_bucle+k_bucle] = ampl* exp(exp_aux_x + exp_aux_y);
+
+          if (z_array[kernel_size*j_bucle+k_bucle] < 0.005)
+              z_array[kernel_size*j_bucle+k_bucle]=0;
+
+          k_bucle++;
+          }
+        j_bucle++;
+        k_bucle=0;
+      }
+
+
+
+  gaus_kernel =  Mat(kernel_size,kernel_size,CV_32FC1,z_array);
+
+    if (IMAGE_CONV)
+  imshow("ggaus", gaus_kernel*100);
+
+
+
+  ///------------intento convolución manual
+
+
+  Mat out = Mat::zeros(src.rows, src.cols, CV_32FC1);
+
+
+/* CONVOLUCIÓN MANUAL
+
+
+  int kCenterX = kernel_size/2;
+  int kCenterY = kernel_size/2;
+
+  int nn, mm, ii, jj, i, j, m, n;
+
+  for(i=0; i < src.rows; ++i)              // rows
+  {
+      for(j=0; j < src.cols; ++j)          // columns
+      {
+          for(m=0; m < kernel_size; ++m)     // kernel rows
+          {
+              mm = kernel_size - 1 - m;      // row index of flipped kernel
+
+              for(n=0; n < kernel_size; ++n) // kernel columns
+              {
+                  nn = kernel_size - 1 - n;  // column index of flipped kernel
+
+                  // index of input signal, used for checking boundary
+                  ii = i + (m - kCenterY);
+                  jj = j + (n - kCenterX);
+
+                  // ignore input samples which are out of bound
+                  if( ii >= 0 && ii < src.rows && jj >= 0 && jj < src.cols )
+                   {
+                      out.at<float>(i,j) += src.at<uchar>(ii,jj)* gaus_kernel.at<uchar>(mm,nn);}
+
+              }
+          }
+      }
+  }
+
+*/
+
+
+
+  int borderMode = BORDER_DEFAULT;
+  filter2D(src, out, ddepth , gaus_kernel*100, anchor, delta, borderMode);
+
+
+  cout << "convoluciona" << endl;
+
+  minMaxLoc(out, &minValgaus, &maxValgaus);
+  cout << "Valor máximo = " << maxValgaus << endl;
+  out.convertTo(out, CV_8U, 255.0/(maxValgaus - minValgaus), -minValgaus * 255.0/(maxValgaus - minValgaus));
+
+
+  if (IMAGE_CONV)
+  imshow("out", out);
+
+
+}
+
+
+///==========================================================================///
+///                      FILTRO SOMBRERO MEXICANO                            ///
+///                                                                          ///
+///==========================================================================///
+
+Mat mexican_filter(Mat& original_send)
+{
+      Mat original = original_send.clone();
+      Mat src;
+
+      minMaxLoc(original, &minValg, &maxValg);
+
+    ///Declaración de las variables para crear el filtro
+      Mat mex_kernel; //= Mat(100,100, CV_32FC2); //matriz del filtro
+      Point anchor; //punto de fijación del píxel que variamos
+      double delta; //offset al píxel
+      int ddepth; //tamaño imagen salida
+      int kernel_size; //tamaño del filtro
+
+      src = maxValg- original;
+
+
+      anchor = Point(-1,-1);
+      delta = 0;
+      ddepth = -1;
+
+      kernel_size = 100;
+      float mu_x = kernel_size/2;
+      float mu_y = kernel_size/2;
+      float ro_x= 33;
+      float ro_y= 33;
+      float ampl = (1/(ro_y*sqrt(2*M_PI)));
+
+      double exp_aux_x, exp_aux_y,ampli_comp;
+      int j_bucle=0;
+      int k_bucle=0;
+
+
+
+      float* x_array = new float[kernel_size*kernel_size];
+      float* y_array = new float[kernel_size*kernel_size];
+      float* z_array = new float[kernel_size*kernel_size];
+
+      for(int j=0; j < kernel_size; j++)
+      {
+          for (int k=0; k< kernel_size; k++)
+          {
+
+          x_array[kernel_size*j_bucle+k_bucle]=k;
+          y_array[kernel_size*j_bucle+k_bucle]=j;
+
+          exp_aux_x = (((k-mu_x)/ro_x)*((k-mu_x)/ro_x))*(-0.5);
+          exp_aux_y = (((j-mu_y)/ro_y)*((j-mu_y)/ro_y))*(-0.5);
+          ampli_comp = 1-(((k-mu_x)/ro_x)*((k-mu_x)/ro_x) + (((j-mu_y)/ro_y)*((j-mu_y)/ro_y)));
+
+          z_array[kernel_size*j_bucle+k_bucle] = ampl*ampli_comp*exp(exp_aux_x + exp_aux_y);
+
+          k_bucle++;
+          }
+        j_bucle++;
+        k_bucle=0;
+      }
+
+
+
+  mex_kernel =  Mat(kernel_size,kernel_size,CV_32FC1,z_array);
+  Mat aux_mexKernel = mex_kernel.clone();
+  minMaxLoc(aux_mexKernel, &minValgaus, &maxValgaus);
+  cout << "maximos y minimos del filtro = " << maxValgaus << " " << minValgaus << endl;
+  aux_mexKernel.convertTo(aux_mexKernel, CV_8U, 255.0/(maxValgaus - minValgaus), -minValgaus * 255.0/(maxValgaus - minValgaus));
+    if (IMAGE_CONV)
+  imshow("mex", aux_mexKernel);
+
+
+
+
+  Mat out = Mat::zeros(src.rows, src.cols, CV_32FC1);
+
+
+/*CONVOLUCIÓN MANUAL
+
+
+  int kCenterX = kernel_size/2;
+  int kCenterY = kernel_size/2;
+
+  int nn, mm, ii, jj, i, j, m, n;
+
+
+
+
+  for(i=0; i < src.rows; ++i)              // rows
+  {
+      for(j=0; j < src.cols; ++j)          // columns
+      {
+          for(m=0; m < kernel_size; ++m)     // kernel rows
+          {
+              mm = kernel_size - 1 - m;      // row index of flipped kernel
+
+              for(n=0; n < kernel_size; ++n) // kernel columns
+              {
+                  nn = kernel_size - 1 - n;  // column index of flipped kernel
+
+                  // index of input signal, used for checking boundary
+                  ii = i + (m - kCenterY);
+                  jj = j + (n - kCenterX);
+
+                  // ignore input samples which are out of bound
+                  if( ii >= 0 && ii < src.rows && jj >= 0 && jj < src.cols )
+                   {out.at<float>(i,j) += src.at<uchar>(ii,jj)* gaus_kernel.at<uchar>(mm,nn);}
+
+              }
+          }
+      }
+  }
+
+*/
+
+
+  int borderMode = BORDER_DEFAULT;
+  filter2D(src, out, ddepth , mex_kernel, anchor, delta, borderMode);
+
+
+  minMaxLoc(out, &minValgaus, &maxValgaus);
+  out.convertTo(out, CV_8U, 255.0/(maxValgaus - minValgaus), -minValgaus * 255.0/(maxValgaus - minValgaus));
+  minMaxLoc(out, &minValgaus, &maxValgaus);
+
+  if (IMAGE_CONV)
+{
+      imshow("out2", out);
+      minMaxLoc(src, &minValgaus, &maxValgaus);
+      src.convertTo(src, CV_8U, 255.0/(maxValgaus - minValgaus), -minValgaus * 255.0/(maxValgaus - minValgaus));
+      imshow("src_dentro", src);
+}
+
+  return out;
+
+}
+int mazo(Mat img)
+{
+for(int x=1;x<img.cols-2;x++)
+{
+for(int y=1;y<img.rows-2;y++)
+{
+int z1,z2,z3,z4,z5,z6,z7,z8,z9,d;
+z1=img.at<uchar>(Point(x-1, y-1));
+z2=img.at<uchar>(Point(x, y-1));
+z3=img.at<uchar>(Point(x+1, y-1));
+z4=img.at<uchar>(Point(x-1, y));
+z5=img.at<uchar>(Point(x, y));
+z6=img.at<uchar>(Point(x+1, y));
+z7=img.at<uchar>(Point(x-1, y+1));
+z8=img.at<uchar>(Point(x, y+1));
+z9=img.at<uchar>(Point(x+1, y+1));
+float z,a00,a01,a10,a11,a20,a02;
+a00=((2*(z2+z4+z6+z8))-(z1+z3+z7+z9)+(5*z5))/9;
+a10=(z3+z6+z9-z1-z4-z7)/(6*d);
+a01=(z1+z2+z3-z7-z8-z9)/(6*d);
+a11=(z3+z7-z1-z9)/(4*d*d);
+a20=((z1+z3+z4+z6+z7+z9)/(6*d*d))-((z2+z5+z8)/(3*d*d));
+a02=((z1+z2+z3+z7+z8+z9)/(6*d*d))-((z4+z5+z6)/(3*d*d));
+z=a00+(a10*x)+(a01*y)+(a11*x*y)+(a20*x*x)+(a02*y*y);
+float nmin,nmax;
+nmax=(-a20)-a02+sqrt(((a20-a02)*(a20-a02))+(a11*a11));
+nmin=(-a20)-a02-sqrt(((a20-a02)*(a20-a02))+(a11*a11));
+}
+}
+return 0;
+}
+
+///==========================================================================///
+///                       DIVIDIR IMAGEN EN RODAJAS                          ///
+///                                                                          ///
+///==========================================================================///
+///
+
+void slice_image ()
+{
+    Mat src, src_th;
+    int slice_th = 255;
+    src = 255- imread("../raquelTOFAlgs/objets_frames/frame_silla291.jpg",CV_LOAD_IMAGE_GRAYSCALE);
+    //resize(src, src_r, Size2f(100,100), 0 ,0 ,INTER_LINEAR);
+
+    threshold( src, src_th, 128, 255, THRESH_BINARY_INV );
+    src = src - src_th;
+
+    int c = 0;
+    while (c < 3)
+{
+    for (int i =0 ; i< src.rows ; i++)
+    {
+        for (int j=0;j<src.cols; j++)
+        {
+            if(src.at<uchar>(i,j) < slice_th)
+                src.at<uchar>(i,j) = 255;
+            else
+                src.at<uchar>(i,j) = 0;
+        }
+    }
+
+    imshow("slice", src);
+    waitKey();
+    c++;
+    slice_th = slice_th-50;
+}
+}
+int main()
+{
+Mat frame = cv::imread("suavizado.png", CV_LOAD_IMAGE_GRAYSCALE);
+mexican_filter(frame);
+
+waitKey(0);
+return 0;
+}

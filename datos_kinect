@@ -1,0 +1,32 @@
+%%%COMENTARIOS CORREO %%%%
+
+PD3: Os adjunto fichero matlab que preparó Cristina para el cálculo de
+las x,y a partir de la u,v del plano imagen y las matrices de
+calibración, de las que disponemos de los siguientes valores:
+
+  Ir camera
+  fx = 365,775391
+  fy = 365,775391
+  cx = 255,634293
+  cy = 207,1539
+  k1 = 0,0935848877
+  k2 = -0,271052808
+  k3 = 0,0922934487
+  p1 = 0
+  p2 = 0
+
+
+  RGB camera
+  fx = 1081,37207
+  fy = 1081,37207
+  cx = 959,5
+  cy = 539,5
+
+
+PD4: Para los que uséis C, la x,y se pueden obtener así:
+
+realX = (u - irCameraParams.cx) * *realZ / irCameraParams.fx;
+realY = (v - irCameraParams.cy) * *realZ / irCameraParams.fy;
+
+
+

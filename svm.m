@@ -1,0 +1,1 @@
+M=csvread('EURUSD1.csv')

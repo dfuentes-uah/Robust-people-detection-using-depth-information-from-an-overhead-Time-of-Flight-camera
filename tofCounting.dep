@@ -1,0 +1,196 @@
+tofCounting.o tofCounting.dep tofCounting.doxygen : tofCounting.c /usr/include/opencv2/core/core.hpp \
+ /usr/include/opencv2/highgui/highgui.hpp \
+ /usr/include/opencv2/imgproc/imgproc.hpp \
+ /usr/include/opencv2/contrib/contrib.hpp \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h \
+ /usr/share/geintra/include/geometryLib/geometrylib.h \
+ /usr/share/geintra/include/common/common.h \
+ /usr/share/geintra/include/doublePrecisionLib/doubleprecisionlib.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../readPMD3sFilesLib/readPMD3sFilesLib.h \
+ /usr/share/geintra/include/readCalibrationInfoLib/readcalibrationinfo.h \
+ ../tofCountingGeneralLib/tofCountingGeneralLib.h Funciones_opencv.h \
+ Funciones.h geom_filters.h clasificador.h maxDetector.h direccion.h \
+ histogramasec.h tiempo.h saveResult.h defines.h extractVector.h \
+ DetectorTOF.h ../raquelTOFAlgs/pcl_test.h
+extractVector.o tofCounting.dep tofCounting.doxygen : extractVector.cpp Funciones_opencv.h geom_filters.h \
+ clasificador.h maxDetector.h direccion.h histogramasec.h tiempo.h \
+ saveResult.h defines.h \
+ /usr/share/geintra/include/geometryLib/geometrylib.h \
+ /usr/share/geintra/include/common/common.h \
+ /usr/share/geintra/include/doublePrecisionLib/doubleprecisionlib.h \
+ ../tofCountingGeneralLib/tofCountingGeneralLib.h \
+ /usr/share/geintra/include/error/error.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ ../tofCountingScoring/tofScoringFunction.h \
+ ../readPMD3sFilesLib/readPMD3sFilesLib.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h \
+ /usr/share/geintra/include/readCalibrationInfoLib/readcalibrationinfo.h \
+ ../tofCountingUtils/tofCountingUtils.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h
+saveResult.o tofCounting.dep tofCounting.doxygen : saveResult.cpp /usr/include/opencv/highgui.h direccion.h \
+ secciones.h tiempo.h defines.h histogramasec.h maxDetector.h
+tiempo.o tofCounting.dep tofCounting.doxygen : tiempo.cpp
+histogramasec.o tofCounting.dep tofCounting.doxygen : histogramasec.cpp
+clasificador.o tofCounting.dep tofCounting.doxygen : clasificador.cpp Funciones_opencv.h defines.h
+geom_filters.o tofCounting.dep tofCounting.doxygen : geom_filters.cpp Funciones_opencv.h
+maxDetector.o tofCounting.dep tofCounting.doxygen : maxDetector.cpp /usr/include/opencv/highgui.h direccion.h \
+ tiempo.h secciones.h defines.h histogramasec.h
+direccion.o tofCounting.dep tofCounting.doxygen : direccion.cpp /usr/include/opencv/cv.h \
+ /usr/include/opencv/highgui.h Funciones_opencv.h defines.h
+secciones.o tofCounting.dep tofCounting.doxygen : secciones.cpp /usr/include/opencv/highgui.h \
+ Funciones_opencv.h defines.h
+DetectorTOF.o tofCounting.dep tofCounting.doxygen : DetectorTOF.cpp Funciones_opencv.h geom_filters.h \
+ clasificador.h maxDetector.h direccion.h secciones.h histogramasec.h \
+ saveResult.h defines.h readWriteVector.h tiempo.h SVM.h \
+ /usr/share/geintra/include/memoria/memoria.h \
+ /usr/share/geintra/include/geometryLib/geometrylib.h \
+ /usr/share/geintra/include/common/common.h \
+ /usr/share/geintra/include/doublePrecisionLib/doubleprecisionlib.h \
+ ../tofCountingGeneralLib/tofCountingGeneralLib.h \
+ /usr/share/geintra/include/error/error.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ ../tofCountingScoring/tofScoringFunction.h \
+ ../readPMD3sFilesLib/readPMD3sFilesLib.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h \
+ /usr/share/geintra/include/readCalibrationInfoLib/readcalibrationinfo.h \
+ ../tofCountingUtils/tofCountingUtils.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h
+readWriteVector.o tofCounting.dep tofCounting.doxygen : readWriteVector.cpp defines.h
+Funciones_opencv.o tofCounting.dep tofCounting.doxygen : Funciones_opencv.cpp
+SVM.o tofCounting.dep tofCounting.doxygen : SVM.cpp /usr/include/opencv/highgui.h direccion.h tiempo.h \
+ secciones.h defines.h histogramasec.h
+readPMD3sLibTestFunction.o tofCounting.dep tofCounting.doxygen : \
+ ../readPMD3sFilesLibTest/readPMD3sLibTestFunction.c \
+ ../readPMD3sFilesLib/readPMD3sFilesLib.h \
+ /usr/share/geintra/include/error/error.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h \
+ /usr/share/geintra/include/geometryLib/geometrylib.h \
+ /usr/share/geintra/include/common/common.h \
+ /usr/share/geintra/include/doublePrecisionLib/doubleprecisionlib.h \
+ /usr/share/geintra/include/readCalibrationInfoLib/readcalibrationinfo.h \
+ ../displayPMD3sFilesLib/displayPMD3sFilesLib.h \
+ /usr/include/opencv2/core/core.hpp \
+ /usr/include/opencv2/highgui/highgui.hpp \
+ /usr/include/opencv2/imgproc/imgproc.hpp \
+ /usr/include/opencv2/contrib/contrib.hpp \
+ ../tofCountingUtils/tofCountingUtils.h
+calcMaxMin.o tofCounting.dep tofCounting.doxygen : ../readPMD3sFilesLib/calcMaxMin.c \
+ ../readPMD3sFilesLib/calcMaxMin.h
+readPMD3sFilesLib.o tofCounting.dep tofCounting.doxygen : ../readPMD3sFilesLib/readPMD3sFilesLib.c \
+ /usr/share/geintra/include/memoria/memoria.h \
+ ../readPMD3sFilesLib/readPMD3sFilesLib.h \
+ /usr/share/geintra/include/error/error.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h \
+ /usr/share/geintra/include/geometryLib/geometrylib.h \
+ /usr/share/geintra/include/common/common.h \
+ /usr/share/geintra/include/doublePrecisionLib/doubleprecisionlib.h \
+ /usr/share/geintra/include/readCalibrationInfoLib/readcalibrationinfo.h \
+ ../readPMD3sFilesLib/calcMaxMin.h
+displayPMD3sFilesLib.o tofCounting.dep tofCounting.doxygen : ../displayPMD3sFilesLib/displayPMD3sFilesLib.c \
+ ../displayPMD3sFilesLib/displayPMD3sFilesLib.h \
+ /usr/include/opencv2/core/core.hpp \
+ /usr/include/opencv2/highgui/highgui.hpp \
+ /usr/include/opencv2/imgproc/imgproc.hpp \
+ /usr/include/opencv2/contrib/contrib.hpp \
+ ../tofCountingUtils/tofCountingUtils.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h \
+ /usr/share/geintra/include/geometryLib/geometrylib.h \
+ /usr/share/geintra/include/common/common.h \
+ /usr/share/geintra/include/doublePrecisionLib/doubleprecisionlib.h \
+ ../readPMD3sFilesLib/readPMD3sFilesLib.h \
+ /usr/share/geintra/include/error/error.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/readCalibrationInfoLib/readcalibrationinfo.h
+tofCountingUtils.o tofCounting.dep tofCounting.doxygen : ../tofCountingUtils/tofCountingUtils.c \
+ ../readPMD3sFilesLib/readPMD3sFilesLib.h \
+ /usr/share/geintra/include/error/error.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h \
+ /usr/share/geintra/include/geometryLib/geometrylib.h \
+ /usr/share/geintra/include/common/common.h \
+ /usr/share/geintra/include/doublePrecisionLib/doubleprecisionlib.h \
+ /usr/share/geintra/include/readCalibrationInfoLib/readcalibrationinfo.h \
+ ../tofCountingUtils/tofCountingUtils.h \
+ ../tofCountingExperimentFuentes/direccion.h \
+ /usr/include/opencv2/core/core.hpp \
+ /usr/include/opencv2/highgui/highgui.hpp \
+ /usr/include/opencv2/imgproc/imgproc.hpp \
+ /usr/include/opencv2/contrib/contrib.hpp
+sourcelocationresultslib.o tofCounting.dep tofCounting.doxygen : \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.c \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ /usr/share/geintra/include/stringsLib/stringslib.h \
+ /usr/share/geintra/include/geometryLib/geometrylib.h \
+ /usr/share/geintra/include/common/common.h \
+ /usr/share/geintra/include/doublePrecisionLib/doubleprecisionlib.h \
+ ../../far-field/sourceLocationResultsLib/sourcelocationresultslib.h
+handleAudioFileLib.o tofCounting.dep tofCounting.doxygen : \
+ ../../far-field/handleAudioFileLib/handleAudioFileLib.c \
+ /usr/share/geintra/include/handleAudioFileLib/handleAudioFileLib.h \
+ /usr/share/geintra/include/error/error.h
+cfgViewTofStreams.o tofCounting.dep tofCounting.doxygen : ../commandLine/cfgViewTofStreams.c \
+ ../commandLine/cfgViewTofStreams.h \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../commandLine/cfgUseStreamFlags.h \
+ /usr/share/geintra/include/common/common.h \
+ ../commandLine/cfgUseStreamFlagsZorXyz.h \
+ ../commandLine/cfgCameraTypeFlags.h \
+ ../commandLine/cfgTofCountingScoringThresholds.h \
+ ../commandLine/cfgDirGTFiles.h ../commandLine/cfgDirResultFiles.h \
+ ../commandLine/cfgResultFormat.h ../commandLine/cfgDoNotDisplay.h
+cfgDirGTFiles.o tofCounting.dep tofCounting.doxygen : ../commandLine/cfgDirGTFiles.c \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h ../commandLine/cfgDirGTFiles.h \
+ /usr/share/geintra/include/common/common.h
+cfgDirResultFiles.o tofCounting.dep tofCounting.doxygen : ../commandLine/cfgDirResultFiles.c \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../commandLine/cfgDirResultFiles.h \
+ /usr/share/geintra/include/common/common.h
+cfgCameraTypeFlags.o tofCounting.dep tofCounting.doxygen : ../commandLine/cfgCameraTypeFlags.c \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../commandLine/cfgCameraTypeFlags.h \
+ /usr/share/geintra/include/common/common.h
+cfgUseStreamFlags.o tofCounting.dep tofCounting.doxygen : ../commandLine/cfgUseStreamFlags.c \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../commandLine/cfgUseStreamFlags.h \
+ /usr/share/geintra/include/common/common.h
+cfgUseStreamFlagsZorXyz.o tofCounting.dep tofCounting.doxygen : ../commandLine/cfgUseStreamFlagsZorXyz.c \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../commandLine/cfgUseStreamFlagsZorXyz.h \
+ /usr/share/geintra/include/common/common.h \
+ ../commandLine/cfgUseStreamFlags.h
+cfgResultFormat.o tofCounting.dep tofCounting.doxygen : ../commandLine/cfgResultFormat.c \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../commandLine/cfgResultFormat.h \
+ /usr/share/geintra/include/common/common.h
+cfgTofCountingScoringThresholds.o tofCounting.dep tofCounting.doxygen : \
+ ../commandLine/cfgTofCountingScoringThresholds.c \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../commandLine/cfgTofCountingScoringThresholds.h \
+ /usr/share/geintra/include/common/common.h
+cfgDoNotDisplay.o tofCounting.dep tofCounting.doxygen : ../commandLine/cfgDoNotDisplay.c \
+ /usr/share/geintra/include/opciones/opciones.h \
+ /usr/share/geintra/include/filehand/filehand.h \
+ /usr/share/geintra/include/error/error.h \
+ ../commandLine/cfgDoNotDisplay.h \
+ /usr/share/geintra/include/common/common.h
